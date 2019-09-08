@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SmartPointer.h"
+#include "Exception.h"
 
 using namespace std;
 using namespace EasySTL;
@@ -19,9 +20,13 @@ public:
 
 int main()
 {
-    SmartPointer<Test> p1 = new Test();
-    SmartPointer<Test> p2 = p1;
-
-    cout << p1.IsNULL() << endl;
-    cout << p2.IsNULL() << endl;
+    try
+    {
+        THROW_EXCEPTION(NullPointerException, "NullPointerException");
+    }
+    catch(const Exception& obj)
+    {
+        cout << obj.message() << endl;
+        cout << obj.location() << endl;
+    }
 }
