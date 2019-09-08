@@ -1,11 +1,13 @@
 #ifndef SMAERPOINT_H
 #define SMAERPOINT_H
 
+#include "Root.h"
+
 namespace EasySTL
 {
 
 template <typename T>
-class SmartPointer
+class SmartPointer : public RootClass
 {
 protected:
     T* mPointer;

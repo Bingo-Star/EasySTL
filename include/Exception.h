@@ -2,13 +2,18 @@
 #define EXCEPTION_H
 
 #include <cstdio>
+#include "Root.h"
 
 namespace EasySTL
 {
 
+#if 1
+#define THROW_EXCEPTION(e, m)
+#elif
 #define THROW_EXCEPTION(e, m) (throw e(m, __FILE__, __LINE__))
+#endif
 
-class Exception
+class Exception : public RootClass
 {
 protected:
     char* mMessage;
@@ -30,6 +35,8 @@ public:
     virtual ~Exception();
 };
 
+/* ArithmeticException */
+
 class ArithmeticException : public Exception
 {
 public:
@@ -41,6 +48,8 @@ public:
     ArithmeticException(const ArithmeticException& obj) : Exception(obj){}
     ArithmeticException& operator= (const ArithmeticException& obj);
 };
+
+/* IndexOutOfBoundsException */
 
 class IndexOutOfBoundsException : public Exception
 {
@@ -54,6 +63,8 @@ public:
     IndexOutOfBoundsException& operator= (const IndexOutOfBoundsException& obj);
 };
 
+/* NoEnoughMemoryException */
+
 class NoEnoughMemoryException : public Exception
 {
 public:
@@ -65,6 +76,8 @@ public:
     NoEnoughMemoryException(const NoEnoughMemoryException& obj) : Exception(obj){}
     NoEnoughMemoryException& operator= (const NoEnoughMemoryException& obj);
 };
+
+/* InvalidParameterException */
 
 class InvalidParameterException : public Exception
 {
@@ -78,6 +91,8 @@ public:
     InvalidParameterException& operator= (const InvalidParameterException& obj);
 };
 
+/* NullPointerException */
+
 class NullPointerException : public Exception
 {
 public:
@@ -89,6 +104,21 @@ public:
     NullPointerException(const NullPointerException& obj) : Exception(obj){}
     NullPointerException& operator= (const NullPointerException& obj);
 };
+
+/* InvalidOperationException */
+
+class InvalidOperationException : public Exception
+{
+public:
+    InvalidOperationException() : Exception(NULL){}
+    InvalidOperationException(const char* message) : Exception(message){}
+    InvalidOperationException(const char* file, int line) : Exception(file, line){}
+    InvalidOperationException(const char* message, const char* file, int line) : Exception(message, file, line){}
+
+    InvalidOperationException(const InvalidOperationException& obj) : Exception(obj){}
+    InvalidOperationException& operator= (const InvalidOperationException& obj);
+};
+
 
 }
 

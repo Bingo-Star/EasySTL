@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "SmartPointer.h"
 #include "Exception.h"
 
@@ -20,13 +21,7 @@ public:
 
 int main()
 {
-    try
     {
-        THROW_EXCEPTION(NullPointerException, "NullPointerException");
-    }
-    catch(const Exception& obj)
-    {
-        cout << obj.message() << endl;
-        cout << obj.location() << endl;
+    SmartPointer<int>* sp = new SmartPointer<int>();
     }
 }

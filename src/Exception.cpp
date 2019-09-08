@@ -1,8 +1,8 @@
-#include "Exception.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
 
+#include "Exception.h"
 
 using namespace EasySTL;
 using namespace std;
@@ -14,8 +14,11 @@ void Exception::init(const char* message, const char* file, int line)
     if (file != NULL)
     {
         this->mLocation = static_cast<char*>(malloc(64));
-        memset(this->mLocation, 0, 64);
-        sprintf(this->mLocation, "%s:%d", file, line);
+        if (this->mLocation != NULL)
+        {
+            memset(this->mLocation, 0, 64);
+            sprintf(this->mLocation, "%s:%d", file, line);
+        }
     }
     else
     {
@@ -73,11 +76,15 @@ Exception::~Exception()
     free(mLocation);
 }
 
+/* ArithmeticException */
+
 ArithmeticException& ArithmeticException::operator= (const ArithmeticException& obj)
 {
     Exception::operator=(obj);
     return *this;
 }
+
+/* IndexOutOfBoundsException */
 
 IndexOutOfBoundsException& IndexOutOfBoundsException::operator= (const IndexOutOfBoundsException& obj)
 {
@@ -85,11 +92,15 @@ IndexOutOfBoundsException& IndexOutOfBoundsException::operator= (const IndexOutO
     return *this;
 }
 
+/* NoEnoughMemoryException */
+
 NoEnoughMemoryException& NoEnoughMemoryException::operator= (const NoEnoughMemoryException& obj)
 {
     Exception::operator=(obj);
     return *this;
 }
+
+/* InvalidParameterException */
 
 InvalidParameterException& InvalidParameterException::operator= (const InvalidParameterException& obj)
 {
@@ -97,11 +108,22 @@ InvalidParameterException& InvalidParameterException::operator= (const InvalidPa
     return *this;
 }
 
+/* NullPointerException */
+
 NullPointerException& NullPointerException::operator= (const NullPointerException& obj)
 {
     Exception::operator=(obj);
     return *this;
 }
+
+/* IndexOperationException */
+
+InvalidOperationException& InvalidOperationException::operator= (const InvalidOperationException& obj)
+{
+    Exception::operator=(obj);
+    return *this;
+}
+
 
 
 
