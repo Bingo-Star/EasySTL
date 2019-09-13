@@ -2,26 +2,22 @@
 
 #include "SmartPointer.h"
 #include "Exception.h"
+#include "DynamicList.h"
 
 using namespace std;
 using namespace EasySTL;
 
-class Test
-{
-public:
-    Test()
-    {
-        cout << "Test()" << endl;
-    }
-    ~Test()
-    {
-        cout << "~Test()" << endl;
-    }
-};
-
 int main()
 {
+    DynamicList<int> nums(10);
+    for (int i = 0; i < nums.capacity(); i++)
     {
-    SmartPointer<int>* sp = new SmartPointer<int>();
+        nums.insert(i, i);
+        cout << nums[i] << endl;
+    }
+    nums.resize(5);
+    for (int i = 0; i < nums.capacity(); i++)
+    {
+        cout << nums[i] << endl;
     }
 }

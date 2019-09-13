@@ -70,6 +70,6 @@ SmartPointer<T>::~SmartPointer()
     delete this->mPointer;
 }
 
-}
+}   // end namespace EasySTL
 
 #endif

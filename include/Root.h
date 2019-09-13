@@ -18,6 +18,6 @@ public:
     virtual ~RootClass() = 0;
 };
 
-}
+}   // end namespace EasySTL
 
 #endif
