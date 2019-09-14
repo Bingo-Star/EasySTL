@@ -14,6 +14,8 @@ protected:
 
 public:
     DynamicList(int capacity);
+    DynamicList(const DynamicList<T>& obj);
+    DynamicList<T>& operator= (const DynamicList<T>& obj); 
     int capacity() const;
     void resize(int capacity);
     ~DynamicList();
@@ -29,10 +31,53 @@ DynamicList<T>::DynamicList(int capacity)
     }
     else
     {
-        mCapacity = 0;
         THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create DynamicList obj !!");
     }
     this->mLength = 0;
+}
+
+template <typename T>
+DynamicList<T>::DynamicList(const DynamicList<T>& obj)
+{
+    this->mArray = new T[obj.mCapacity];
+    if (this->mArray != NULL)
+    {
+        for (int i = 0; i < obj.mLength; i++)
+        {
+            this->mArray[i] = obj.mArray[i];
+        }
+        this->mLength = obj.mLength;
+        this->mCapacity = obj.mCapacity;
+    }
+    else
+    {
+        THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create DynamicList obj !!");
+    }
+}
+
+template <typename T>
+DynamicList<T>& DynamicList<T>::operator= (const DynamicList<T>& obj)
+{
+    if (this == &obj)
+    {
+        return *this;
+    }
+    
+    this->mArray = new T[obj.mCapacity];
+    if (this->mArray != NULL)
+    {
+        for (int i = 0; i < obj.mLength; i++)
+        {
+            this->mArray[i] = obj.mArray[i];
+        }
+        this->mLength = obj.mLength;
+        this->mCapacity = obj.mCapacity;
+    }
+    else
+    {
+        THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create DynamicList obj !!");
+    }
+    return *this;
 }
 
 template <typename T>

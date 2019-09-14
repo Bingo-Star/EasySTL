@@ -3,20 +3,21 @@
 #include "SmartPointer.h"
 #include "Exception.h"
 #include "DynamicList.h"
+#include "StaticList.h"
 
 using namespace std;
 using namespace EasySTL;
 
 int main()
 {
-    DynamicList<int> nums(10);
+    StaticList<int, 10> nums;
     for (int i = 0; i < nums.capacity(); i++)
     {
         nums.insert(i, i);
-        cout << nums[i] << endl;
     }
-    nums.resize(5);
-    for (int i = 0; i < nums.capacity(); i++)
+    StaticList<int, 10> numsB = nums;
+    numsB[0] = 99;
+    for (int i = 0; i < nums.length(); i++)
     {
         cout << nums[i] << endl;
     }

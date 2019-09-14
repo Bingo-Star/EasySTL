@@ -14,6 +14,8 @@ protected:
 
 public:
     StaticList();
+    StaticList(const StaticList<T, N>& obj);
+    StaticList<T, N>& operator= (const StaticList<T, N>& obj); 
     int capacity() const;
 };
 
@@ -22,6 +24,34 @@ StaticList<T, N>::StaticList()
 {
     this->mArray = mSpace;
     this->mLength = 0;
+}
+
+template <typename T, int N>
+StaticList<T, N>::StaticList(const StaticList<T, N>& obj)
+{
+    for (int i = 0; i < obj.mLength; i++)
+    {
+        this->mSpace[i] = obj.mSpace[i];
+    }
+    this->mArray = this->mSpace;
+    this->mLength = obj.mLength;
+}
+
+template <typename T, int N>
+StaticList<T, N>& StaticList<T, N>::operator= (const StaticList<T, N>& obj)
+{
+    if (this == &obj)
+    {
+        return *this;
+    }
+    
+    for (int i = 0; i < obj.mLength; i++)
+    {
+        this->mSpace[i] = obj.mSpace[i];
+    }
+    this->mArray = this->mSpace;
+    this->mLength = obj.mLength;
+    return *this;
 }
 
 template <typename T, int N>
