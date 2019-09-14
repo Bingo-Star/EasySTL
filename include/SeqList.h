@@ -15,6 +15,7 @@ protected:
 
 public:
     bool insert(int index, const T& element);
+    bool push_back(const T& element);
     bool remove(int index);
     bool set(int index, const T& element);
     bool get(int index, T& element) const;
@@ -43,6 +44,12 @@ bool SeqList<T>::insert(int index, const T& element)
     mLength++;
     
     return true;
+}
+
+template <typename T>
+bool SeqList<T>::push_back(const T& element)
+{
+    return insert(mLength, element);
 }
 
 template <typename T>
