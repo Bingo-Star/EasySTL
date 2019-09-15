@@ -62,16 +62,22 @@ DynamicList<T>& DynamicList<T>::operator= (const DynamicList<T>& obj)
     {
         return *this;
     }
-    
-    this->mArray = new T[obj.mCapacity];
-    if (this->mArray != NULL)
+
+    T* lArray = new T[obj.mLength];
+    if (lArray != NULL)
     {
         for (int i = 0; i < obj.mLength; i++)
         {
-            this->mArray[i] = obj.mArray[i];
+            lArray[i] = obj.mArray[i];
         }
+        T* tmp = this->mArray;
+        this->mArray = lArray;
         this->mLength = obj.mLength;
         this->mCapacity = obj.mCapacity;
+        if (tmp != NULL)
+        {
+            delete[] tmp;
+        }
     }
     else
     {
@@ -112,12 +118,9 @@ void DynamicList<T>::resize(int capacity)
             }
             this->mLength = capacity;
         }
-
-        T* tmp = this->mArray;
-        
+        T* tmp = this->mArray;     
         this->mArray = lArray;
-        mCapacity = capacity;
-
+        mCapacity = capacity;     
         delete[] tmp;
     }
     else

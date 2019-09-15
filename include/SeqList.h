@@ -112,7 +112,7 @@ T& SeqList<T>::operator[] (int index)
 {
     if (index < 0 || index >= mLength)
     {
-        THROW_EXCEPTION(IndexOutOfBoundsException, "index is invalid!");
+        THROW_EXCEPTION(IndexOutOfBoundsException, "index is invalid !!");
     }  
     return mArray[index];
 }
@@ -120,7 +120,7 @@ T& SeqList<T>::operator[] (int index)
 template <typename T>
 T SeqList<T>::operator[] (int index) const
 {
-    return const_cast<SeqList<T>&>(*this)[index];
+    return (const_cast<SeqList<T>&>(*this))[index];
 }
 
 }   // end namespace EasySTL

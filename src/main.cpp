@@ -4,18 +4,22 @@
 #include "Exception.h"
 #include "DynamicList.h"
 #include "StaticList.h"
+#include "StaticArray.h"
+#include "DynamicArray.h"
 
 using namespace std;
 using namespace EasySTL;
 
 int main()
 {
-    StaticList<int, 10> nums;
-    for (int i = 0; i < 5; i++)
+    DynamicArray<int> nums(10);
+    for (int i = 0; i < nums.length(); i++)
     {
-        nums.insert(i, i);
+        nums[i] = 10 - i;
     }
-    nums.push_back(55);
+    DynamicArray<int> nums2(6);
+    nums2 = nums;
+    nums2.resize(5);
     for (int i = 0; i < nums.length(); i++)
     {
         cout << nums[i] << endl;
