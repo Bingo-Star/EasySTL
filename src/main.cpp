@@ -6,22 +6,34 @@
 #include "StaticList.h"
 #include "StaticArray.h"
 #include "DynamicArray.h"
+#include "LinkList.h"
 
 using namespace std;
 using namespace EasySTL;
 
+class Test
+{
+public:
+	Test()
+	{
+		throw(0);
+	}
+};
+
 int main()
 {
-    DynamicArray<int> nums(10);
-    for (int i = 0; i < nums.length(); i++)
+    LinkList<int> list;
+    
+    for (int i = 0; i < 10; i++)
     {
-        nums[i] = 10 - i;
+        list.insert(0, i);
     }
-    DynamicArray<int> nums2(6);
-    nums2 = nums;
-    nums2.resize(5);
-    for (int i = 0; i < nums.length(); i++)
+    int num = 0;
+    list.clear();
+    for (int i = 0; i < list.length(); i++)
     {
-        cout << nums[i] << endl;
+    	list.get(i, num);
+        cout << num << endl;
     }
+    
 }
