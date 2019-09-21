@@ -26,6 +26,7 @@ public:
     bool get(int index, T& element) const;
     int length() const;
     void clear();
+    int find(T& element) const;
     ~LinkList();
 };
 
@@ -154,6 +155,20 @@ void LinkList<T>::clear()
     {
     	remove(0);
 	} 
+}
+
+template <typename T>
+int LinkList<T>::find(T& element) const
+{
+	int count = 0;
+    for (Node* current = mHeader; current != NULL; current = current->next, count++)
+    {
+    	if (current->value == element)
+    	{
+    		return count;
+    	}
+    }
+    return -1;
 }
 
 template <typename T>

@@ -11,29 +11,30 @@
 using namespace std;
 using namespace EasySTL;
 
-class Test
+class Test : public RootClass
 {
+	int i;
 public:
-	Test()
+	Test(int element = 0)
 	{
-		throw(0);
+		i = element;
+	}
+	bool operator == (Test& obj)
+	{
+		return this->i == obj.i;
 	}
 };
 
 int main()
 {
-    LinkList<int> list;
+    LinkList<Test> list;
+    Test obj_A(0);
+    Test obj_B(1);
+    Test obj_C(2);
     
-    for (int i = 0; i < 10; i++)
-    {
-        list.insert(0, i);
-    }
-    int num = 0;
-    list.clear();
-    for (int i = 0; i < list.length(); i++)
-    {
-    	list.get(i, num);
-        cout << num << endl;
-    }
-    
+    list.insert(0, obj_A);
+    list.insert(0, obj_B);
+    list.insert(0, obj_C);
+
+    cout << list.find(obj_A) << endl;
 }

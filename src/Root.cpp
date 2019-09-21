@@ -29,6 +29,18 @@ void RootClass::operator delete[] (void* p)
     free(p);
 }
 
+bool RootClass::operator == (RootClass& obj)
+{
+	cout << "operator == " << endl;
+    return this == &obj;
+}
+
+bool RootClass::operator != (RootClass& obj)
+{
+	cout << "operator != " << endl;
+    return this != &obj;
+}
+
 RootClass::~RootClass()
 {
 }
