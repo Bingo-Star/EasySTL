@@ -150,8 +150,7 @@ int LinkList<T>::length() const
 template <typename T>
 void LinkList<T>::clear()
 {
-    int count = length();
-    while (count--)
+    while (length())
     {
     	remove(0);
 	} 
