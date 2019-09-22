@@ -7,9 +7,9 @@
 namespace EasySTL
 {
 
-#if 1
+#if 0
 #define THROW_EXCEPTION(e, m)
-#elif
+#else
 #define THROW_EXCEPTION(e, m) (throw e(m, __FILE__, __LINE__))
 #endif
 

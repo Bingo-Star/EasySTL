@@ -15,20 +15,32 @@ protected:
         T value;
         Node* next;
     };
+    
     Node* mHeader;
     int mLength;
+
+    Node* mCurrent;
+    int mStep;
     
 public:
     LinkList();
+    ~LinkList();
+    
     bool insert(int index, const T& element);
     bool remove(int index);
+    bool push_back(const T& element);
+      
     bool set(int index, const T& element);
     bool get(int index, T& element) const;
     int length() const;
+
     void clear();
     int find(T& element) const;
-    bool push_back(const T& element);
-    ~LinkList();
+    
+	bool move(int index, int step = 1);
+    bool end();
+    T current();
+    bool next();
 };
 
 template <typename T>
@@ -36,6 +48,8 @@ LinkList<T>::LinkList()
 {
     mHeader = NULL;
     mLength = 0;
+    mCurrent = NULL;
+    mStep = 1;
 }
 
 template <typename T>
@@ -178,6 +192,54 @@ bool LinkList<T>::push_back(const T& element)
 	return insert(length(), element);
 }
 
+template <typename T>
+bool LinkList<T>::move(int index, int step)
+{
+	if (index < 0 || index >= mLength || step <= 0)
+	{
+		return false;
+	}
+
+	mCurrent = mHeader;
+	while (index--)
+	{
+		mCurrent = mCurrent->next;
+	}
+	mStep = step;
+
+	return true;
+}
+
+template <typename T>
+bool LinkList<T>::end()
+{
+	return mCurrent == NULL;
+}
+
+template <typename T>
+T LinkList<T>::current()
+{
+	if (!end())
+	{
+		return mCurrent->value;
+	}
+	else
+	{
+		THROW_EXCEPTION(InvalidOperationException, "No value at mCurrent pointer !!");
+	}
+}
+
+template <typename T>
+bool LinkList<T>::next()
+{
+	int i = 0;
+	for (; i < mStep && !end(); i++)
+	{
+		mCurrent = mCurrent->next;
+	}
+
+	return i == mStep;
+}
 
 template <typename T>
 LinkList<T>::~LinkList()

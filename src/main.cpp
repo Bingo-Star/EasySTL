@@ -38,10 +38,9 @@ int main()
 
     // cout << list.find(obj_A) << endl;
 
-    for (int i = 0; i < list.length(); i++)
+    for (list.move(0); !list.end(); list.next())
     {
-    	int num = 0;
-    	list.get(i, num);
-    	cout << num << endl;
+    	
+    	cout << list.current() << endl;
     }
 }
