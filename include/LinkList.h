@@ -27,6 +27,7 @@ public:
     int length() const;
     void clear();
     int find(T& element) const;
+    bool push_back(const T& element);
     ~LinkList();
 };
 
@@ -170,6 +171,13 @@ int LinkList<T>::find(T& element) const
     }
     return -1;
 }
+
+template <typename T>
+bool LinkList<T>::push_back(const T& element)
+{
+	return insert(length(), element);
+}
+
 
 template <typename T>
 LinkList<T>::~LinkList()

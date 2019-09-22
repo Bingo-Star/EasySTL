@@ -27,14 +27,21 @@ public:
 
 int main()
 {
-    LinkList<Test> list;
+    LinkList<int>list;
     Test obj_A(0);
     Test obj_B(1);
     Test obj_C(2);
     
-    list.insert(0, obj_A);
-    list.insert(0, obj_B);
-    list.insert(0, obj_C);
+    list.push_back(0);
+    list.push_back(1);
+    list.push_back(3);
 
-    cout << list.find(obj_A) << endl;
+    // cout << list.find(obj_A) << endl;
+
+    for (int i = 0; i < list.length(); i++)
+    {
+    	int num = 0;
+    	list.get(i, num);
+    	cout << num << endl;
+    }
 }
