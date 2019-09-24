@@ -13,7 +13,7 @@ protected:
     int mCapacity;      // 顺序存储空间大小
 
 public:
-    DynamicList(int capacity);
+    DynamicList(int capacity = 64);
     DynamicList(const DynamicList<T>& obj);
     DynamicList<T>& operator= (const DynamicList<T>& obj); 
     int capacity() const;

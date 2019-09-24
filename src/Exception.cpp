@@ -9,7 +9,7 @@ using namespace std;
 
 void Exception::init(const char* message, const char* file, int line)
 {
-    this->mMessage = strdup(message);
+    this->mMessage = message ? strdup(message) : NULL;
 
     if (file != NULL)
     {

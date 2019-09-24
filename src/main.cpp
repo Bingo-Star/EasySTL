@@ -34,20 +34,43 @@ public:
 
 int main()
 {
-    LinkList<Test>list;
-    Test obj_A(5);
-    Test obj_B(4);
-    Test obj_C(3);
+	// Test obj_A(5);
+    // Test obj_B(4);
+    // Test obj_C(3);
     
-    list.push_back(obj_A);
-    list.push_back(obj_B);
-    list.push_back(obj_C);
+    // list.push_back(obj_A);
+    // list.push_back(obj_B);
+    // list.push_back(obj_C);
 
     // cout << list.find(obj_A) << endl;
 
-    for (list.move(0); !list.end(); list.next())
+    /*for (list.move(0); !list.end(); list.next())
     {
     	
     	cout << list.current().i << endl;
+    }*/
+
+    // cout << nums.length() << endl;
+
+    DynamicArray< DynamicArray<int> > nums;
+    nums.resize(10);
+    for (int i = 0; i < nums.length(); i++)
+    {
+    	nums[i].resize(i + 1);
+    }
+    for (int i = 0; i < nums.length(); i++)
+    {
+    	for (int j = 0; j < nums[i].length(); j++)
+    	{
+    		nums[i].set(j, j);
+    	}
+    }
+    for (int i = 0; i < nums.length(); i++)
+    {
+    	for (int j = 0; j < nums[i].length(); j++)
+    	{
+    		cout << nums[i][j] << " ";
+    	}
+    	cout << endl;
     }
 }

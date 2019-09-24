@@ -14,7 +14,7 @@ protected:
     int mLength;      // 顺序存储空间大小
 
 public:
-    DynamicArray(int len);
+    DynamicArray(int len = 64);
     DynamicArray(const DynamicArray<T>& obj);
     DynamicArray<T>& operator= (const DynamicArray<T>& obj); 
     int length() const;

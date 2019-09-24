@@ -72,6 +72,7 @@ void StaticLinkList<T, N>::destroy(Node *p)
 		{
 			mUsed[i] = false;
 			tmp->~SNode();
+			break;
 		}
 	}
 }

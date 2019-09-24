@@ -117,6 +117,13 @@ bool LinkList<T>::remove(int index)
     {
     	Node* current = mHeader;
     	mHeader = mHeader->next;
+    	mLength--;
+
+		if (mCurrent == current)
+		{
+			mCurrent = current->next;
+		}
+    	
     	destroy(current);
     }
     else
@@ -128,9 +135,15 @@ bool LinkList<T>::remove(int index)
 	    }  
 	    Node* tmp = current->next;
 	    current->next = current->next->next;
+	    mLength--;
+
+		if (mCurrent == tmp)
+		{
+			mCurrent = current->next;
+		}
+		
 	    destroy(tmp);
 	}
-    mLength--;
 
     return true;
 }
