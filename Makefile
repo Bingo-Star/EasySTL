@@ -1,7 +1,7 @@
 RM = -rm -f
 # CC = arm-hisiv300-linux-gcc
 CC = g++
-CFLAGS = -c 
+CFLAGS = -c -g
 # -std = c++11
 #LDFLAGS = -L$(MAKE_DIR)/library -loperation
 

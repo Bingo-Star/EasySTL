@@ -21,6 +21,9 @@ protected:
 
     Node* mCurrent;
     int mStep;
+
+    virtual Node* create();
+    virtual void destroy(Node* p); 
     
 public:
     LinkList();
@@ -39,9 +42,21 @@ public:
     
 	bool move(int index, int step = 1);
     bool end();
-    T current();
+    T& current();
     bool next();
 };
+
+template <typename T>
+typename LinkList<T>::Node* LinkList<T>::create()
+{
+	return new Node();
+}
+
+template <typename T>
+void LinkList<T>::destroy(Node* p)
+{
+	delete p;
+}
 
 template <typename T>
 LinkList<T>::LinkList()
@@ -60,7 +75,7 @@ bool LinkList<T>::insert(int index, const T& element)
         return false;
     }    
 
-    Node* node = new Node();
+    Node* node = create();
     if (node != NULL)
     {       
         if (index == 0)
@@ -102,7 +117,7 @@ bool LinkList<T>::remove(int index)
     {
     	Node* current = mHeader;
     	mHeader = mHeader->next;
-    	delete current;
+    	destroy(current);
     }
     else
     {
@@ -113,7 +128,7 @@ bool LinkList<T>::remove(int index)
 	    }  
 	    Node* tmp = current->next;
 	    current->next = current->next->next;
-	    delete tmp;
+	    destroy(tmp);
 	}
     mLength--;
 
@@ -217,7 +232,7 @@ bool LinkList<T>::end()
 }
 
 template <typename T>
-T LinkList<T>::current()
+T& LinkList<T>::current()
 {
 	if (!end())
 	{
