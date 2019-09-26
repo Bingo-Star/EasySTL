@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "SmartPointer.h"
+#include "SharedPointer.h"
 #include "Exception.h"
 #include "DynamicList.h"
 #include "StaticList.h"
@@ -34,24 +35,24 @@ public:
 
 int main()
 {
-	// Test obj_A(5);
-    // Test obj_B(4);
-    // Test obj_C(3);
+/*
+	LinkList<Test> list;
+	
+	Test obj_A(5);
+    Test obj_B(4);
+    Test obj_C(3);
     
-    // list.push_back(obj_A);
-    // list.push_back(obj_B);
-    // list.push_back(obj_C);
+    list.push_back(obj_A);
+    list.push_back(obj_B);
+    list.push_back(obj_C);
 
-    // cout << list.find(obj_A) << endl;
-
-    /*for (list.move(0); !list.end(); list.next())
+    for (list.move(0); !list.end(); list.next())
     {
     	
     	cout << list.current().i << endl;
-    }*/
-
-    // cout << nums.length() << endl;
-
+    }
+*/
+/*
     DynamicArray< DynamicArray<int> > nums;
     nums.resize(10);
     for (int i = 0; i < nums.length(); i++)
@@ -73,4 +74,10 @@ int main()
     	}
     	cout << endl;
     }
+*/
+
+	const SharedPointer<Test> p = new Test(5);
+	SharedPointer<Test> q(p);
+	cout << (p == q) << endl;
+	
 }

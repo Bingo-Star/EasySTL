@@ -1,31 +1,24 @@
-#ifndef SMAERPOINT_H
-#define SMAERPOINT_H
+#ifndef SMAERPOINTER_H
+#define SMAERPOINTER_H
 
-#include "Root.h"
+#include "Pointer.h"
 
 namespace EasySTL
 {
 
 template <typename T>
-class SmartPointer : public RootClass
+class SmartPointer : public Pointer<T>
 {
-protected:
-    T* mPointer;
-
 public:
     SmartPointer(T* p = NULL);
     SmartPointer(const SmartPointer<T>& obj);
     SmartPointer<T>& operator= (const SmartPointer<T>& obj);
-    T* operator-> ();
-    T& operator* ();
-    bool IsNULL();
     ~SmartPointer();
 };
 
 template <typename T>
-SmartPointer<T>::SmartPointer(T* p)
+SmartPointer<T>::SmartPointer(T* p) : Pointer<T>(p)
 {
-    this->mPointer = p;
 }
 
 template <typename T>
@@ -40,28 +33,11 @@ SmartPointer<T>& SmartPointer<T>::operator= (const SmartPointer<T>& obj)
 {
     if (*this != obj)
     {
-        delete this->mPointer;
+    	T* tmp = this->mPointer;
         this->mPointer = obj.mPointer;
         const_cast<SmartPointer<T>&>(obj).mPointer = NULL;
+        delete tmp;
     }
-}
-
-template <typename T>
-T* SmartPointer<T>::operator-> ()
-{
-    return this->mPointer;
-}
-
-template <typename T>
-T& SmartPointer<T>::operator* ()
-{
-    return *(this->mPointer);
-}
-
-template <typename T>
-bool SmartPointer<T>::IsNULL()
-{
-    return this->mPointer == NULL;
 }
 
 template <typename T>
