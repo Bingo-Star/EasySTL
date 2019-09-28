@@ -3,7 +3,7 @@
 
 #include "SeqList.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -135,7 +135,7 @@ DynamicList<T>::~DynamicList()
     delete[] this->mArray;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

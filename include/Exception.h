@@ -4,7 +4,7 @@
 #include <cstdio>
 #include "Root.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 #if 0
@@ -120,7 +120,7 @@ public:
 };
 
 
-}
+}  // end namespace EasyDSL
 
 #endif
 

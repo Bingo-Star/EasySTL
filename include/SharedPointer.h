@@ -5,7 +5,7 @@
 #include "Exception.h"
 #include <cstdlib>
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -109,7 +109,7 @@ SharedPointer<T>::~SharedPointer()
 
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

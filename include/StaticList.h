@@ -3,7 +3,7 @@
 
 #include "SeqList.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T, int N>
@@ -60,7 +60,7 @@ int StaticList<T, N>::capacity() const
     return N;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

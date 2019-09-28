@@ -3,7 +3,7 @@
 
 #include "List.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -123,7 +123,7 @@ T SeqList<T>::operator[] (int index) const
     return (const_cast<SeqList<T>&>(*this))[index];
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

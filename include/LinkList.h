@@ -3,7 +3,7 @@
 
 #include "List.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -275,7 +275,7 @@ LinkList<T>::~LinkList()
     clear();
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

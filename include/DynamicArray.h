@@ -4,7 +4,7 @@
 #include "Array.h"
 #include "Exception.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -130,7 +130,7 @@ DynamicArray<T>::~DynamicArray()
     delete[] this->mArray;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

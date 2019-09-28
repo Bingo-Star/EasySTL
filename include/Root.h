@@ -3,7 +3,7 @@
 
 #include <cstdio>
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 class RootClass
@@ -21,6 +21,6 @@ public:
     virtual ~RootClass() = 0;
 };
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif

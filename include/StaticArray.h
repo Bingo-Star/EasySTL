@@ -3,7 +3,7 @@
 
 #include "Array.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T, int N>
@@ -55,7 +55,7 @@ int StaticArray<T, N>::length() const
     return N;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

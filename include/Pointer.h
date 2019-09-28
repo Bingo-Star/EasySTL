@@ -3,7 +3,7 @@
 
 #include "Root.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -64,7 +64,7 @@ T* Pointer<T>::get() const
 	return mPointer;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

@@ -3,7 +3,7 @@
 
 #include "Pointer.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -46,6 +46,6 @@ SmartPointer<T>::~SmartPointer()
     delete this->mPointer;
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif

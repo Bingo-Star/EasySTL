@@ -3,7 +3,7 @@
 
 #include "Root.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -18,7 +18,7 @@ public:
     virtual void clear() = 0;
 };
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 

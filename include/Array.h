@@ -4,7 +4,7 @@
 #include "Root.h"
 #include "Exception.h"
 
-namespace EasySTL
+namespace EasyDSL
 {
 
 template <typename T>
@@ -64,7 +64,7 @@ T Array<T>::operator[] (int index) const
     return (const_cast<Array<T>&>(*this))[index];
 }
 
-}   // end namespace EasySTL
+}   // end namespace EasyDSL
 
 #endif
 
