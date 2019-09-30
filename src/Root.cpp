@@ -4,7 +4,7 @@
 
 #include "Root.h"
 
-using namespace EasySTL;
+using namespace EasyDSL;
 using namespace std;
 
 void* RootClass::operator new (size_t size) throw()

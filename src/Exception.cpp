@@ -4,7 +4,7 @@
 
 #include "Exception.h"
 
-using namespace EasySTL;
+using namespace EasyDSL;
 using namespace std;
 
 void Exception::init(const char* message, const char* file, int line)

@@ -31,7 +31,7 @@ public:
     
     bool insert(int index, const T& element);
     bool remove(int index);
-    bool push_back(const T& element);
+    virtual bool push_back(const T& element);
       
     bool set(int index, const T& element);
     bool get(int index, T& element) const;
@@ -40,10 +40,10 @@ public:
     void clear();
     int find(T& element) const;
     
-	bool move(int index, int step = 1);
-    bool end();
-    T& current();
-    bool next();
+	virtual bool move(int index, int step = 1);
+    virtual bool end();
+    virtual T& current();
+    virtual bool next();
 };
 
 template <typename T>

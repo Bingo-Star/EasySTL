@@ -9,9 +9,10 @@
 #include "DynamicArray.h"
 #include "LinkList.h"
 #include "StaticLinkList.h"
+#include "CircleList.h"
 
 using namespace std;
-using namespace EasySTL;
+using namespace EasyDSL;
 
 class Test : public RootClass
 {
@@ -35,23 +36,23 @@ public:
 
 int main()
 {
-/*
-	LinkList<Test> list;
-	
-	Test obj_A(5);
-    Test obj_B(4);
-    Test obj_C(3);
-    
-    list.push_back(obj_A);
-    list.push_back(obj_B);
-    list.push_back(obj_C);
 
-    for (list.move(0); !list.end(); list.next())
-    {
-    	
-    	cout << list.current().i << endl;
-    }
-*/
+//	CirleList<Test> list;
+//	
+//	Test obj_A(5);
+//	Test obj_B(4);
+//	Test obj_C(3);
+//    
+//    list.push_back(obj_A);
+//    list.push_back(obj_B);
+//    list.push_back(obj_C);
+
+//    for (list.move(0); !list.end(); list.next())
+//    {
+//    	
+//    	cout << list.current().i << endl;
+//    }
+
 /*
     DynamicArray< DynamicArray<int> > nums;
     nums.resize(10);
@@ -76,8 +77,23 @@ int main()
     }
 */
 
-	const SharedPointer<Test> p = new Test(5);
-	SharedPointer<Test> q(p);
-	cout << (p == q) << endl;
-	
+//	const SharedPointer<Test> p = new Test(5);
+//	SharedPointer<Test> q(p);
+//	cout << (p == q) << endl;
+
+	CirleList<int> cl;
+
+	for (int i = 1; i <= 41; i++)
+	{
+		cl.push_back(i);
+	}
+
+	cl.move(0, 2);
+
+	while (cl.length() > 0)
+	{
+		cl.next();
+		cout << cl.current() << endl;
+		cl.remove(cl.find(cl.current()));
+	}
 }
