@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 #include "SmartPointer.h"
 #include "SharedPointer.h"
 #include "Exception.h"
@@ -10,8 +12,8 @@
 #include "LinkList.h"
 #include "StaticLinkList.h"
 #include "CircleList.h"
+#include "DualLinkList.h"
 
-using namespace std;
 using namespace EasyDSL;
 
 class Test : public RootClass
@@ -37,21 +39,22 @@ public:
 int main()
 {
 
-//	CirleList<Test> list;
-//	
-//	Test obj_A(5);
-//	Test obj_B(4);
-//	Test obj_C(3);
-//    
-//    list.push_back(obj_A);
-//    list.push_back(obj_B);
-//    list.push_back(obj_C);
+	DualLinkList<Test> list;
 
-//    for (list.move(0); !list.end(); list.next())
-//    {
-//    	
-//    	cout << list.current().i << endl;
-//    }
+	Test obj_A(5);
+	Test obj_B(4);
+	Test obj_C(3);
+
+	list.insert(0, obj_A);
+	list.push_back(obj_B);
+	list.push_back(obj_C);
+
+	for (list.move(list.length() - 1); !list.end(); list.pre())
+	{
+		
+		cout << list.current().i << endl;
+		list.remove(0);
+	}
 
 /*
     DynamicArray< DynamicArray<int> > nums;
@@ -81,19 +84,21 @@ int main()
 //	SharedPointer<Test> q(p);
 //	cout << (p == q) << endl;
 
-	CirleList<int> cl;
+//	CirleList<int> cl;
 
-	for (int i = 1; i <= 41; i++)
-	{
-		cl.push_back(i);
-	}
+//	for (int i = 1; i <= 5; i++)
+//	{
+//		cl.push_back(i);
+//	}
 
-	cl.move(0, 2);
+//	cl.move(0, 2);
 
-	while (cl.length() > 0)
-	{
-		cl.next();
-		cout << cl.current() << endl;
-		cl.remove(cl.find(cl.current()));
-	}
+//	while (cl.length() > 0)
+//	{
+//		cl.next();
+//		cout << cl.current() << endl;
+//		cl.remove(cl.find(cl.current()));
+//	}
+
+//	cl.clear();
 }
