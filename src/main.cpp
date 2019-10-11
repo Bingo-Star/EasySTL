@@ -13,6 +13,7 @@ using namespace std;
 #include "StaticLinkList.h"
 #include "CircleList.h"
 #include "DualLinkList.h"
+#include "DualCircleList.h"
 
 using namespace EasyDSL;
 
@@ -39,21 +40,24 @@ public:
 int main()
 {
 
-	DualLinkList<Test> list;
+	CircleList<int> list;
 
-	Test obj_A(5);
-	Test obj_B(4);
-	Test obj_C(3);
+//	Test obj_A(5);
+//	Test obj_B(4);
+//	Test obj_C(3);
 
-	list.insert(0, obj_A);
-	list.push_back(obj_B);
-	list.push_back(obj_C);
-
-	for (list.move(list.length() - 1); !list.end(); list.pre())
+	list.insert(0, 10);
+	for (int i = 20; i < 30; i++)
 	{
-		
-		cout << list.current().i << endl;
-		list.remove(0);
+		list.push_back(i);
+	}
+	list.remove(0);
+	list.remove(list.length());
+	list.remove(list.length() - 1);
+	list.move(0);
+	for (int i = 0; i < 20; list.next(), i++)
+	{
+		cout << list.current() << endl;
 	}
 
 /*

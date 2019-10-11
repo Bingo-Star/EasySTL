@@ -1,22 +1,22 @@
-#ifndef CIRCLELIST_H
-#define CIRCLELIST_H
+#ifndef DUALCIRCLELIST_H
+#define DUALCIRCLELIST_H
 
-#include "LinkList.h"
+#include "DualLinkList.h"
 
 namespace EasyDSL
 {
 
 template <typename T>
-class CircleList : public LinkList<T>
+class DualCircleList : public DualLinkList<T>
 {
-protected:
-	typedef typename LinkList<T>::Node Node;
+protected:	
+	typedef typename DualLinkList<T>::Node Node;
 	Node* mTail;
-
+    
 public:
-	CircleList();
-	~CircleList();
-	
+    DualCircleList();
+    ~DualCircleList();
+    
 	bool insert(int index, const T& element);
 	bool remove(int index);
 	  
@@ -29,22 +29,16 @@ public:
 };
 
 template <typename T>
-CircleList<T>::CircleList()
+DualCircleList<T>::DualCircleList()
 {
-	mTail = NULL;
+    mTail = NULL;
 }
 
 template <typename T>
-CircleList<T>::~CircleList()
-{
-	LinkList<T>::clear();
-}
-
-template <typename T>
-bool CircleList<T>::insert(int index, const T& element)
+bool DualCircleList<T>::insert(int index, const T& element)
 {
 	int new_index = index;
-	int len = LinkList<T>::length();
+	int len = DualLinkList<T>::length();
 	if (len == 0)
 	{
 	    new_index = 0; 		
@@ -58,17 +52,19 @@ bool CircleList<T>::insert(int index, const T& element)
 	    new_index = index % len;
 	}
 
-	if (LinkList<T>::insert(new_index, element) == true)
+	if (DualLinkList<T>::insert(new_index, element) == true)
     {
 		if (len == 0)
 		{
-			mTail = this->mHeader;	
+			mTail = this->mHeader;
 			this->mHeader->next = this->mHeader;
+			this->mHeader->pre = this->mHeader;
 		}
 		else if (index != 0 && index % len == 0)
 		{
 			mTail = mTail->next;
 	    	mTail->next = this->mHeader;
+	    	this->mHeader->pre = mTail;
 		}
     	return true;
     }
@@ -76,21 +72,23 @@ bool CircleList<T>::insert(int index, const T& element)
     {
     	return false;
     }  
+
 }
 
 template <typename T>
-bool CircleList<T>::remove(int index)
+bool DualCircleList<T>::remove(int index)
 {
-	index = index % LinkList<T>::length();
-	if (LinkList<T>::remove(index) == true)
+	index = index % DualLinkList<T>::length();
+	if (DualLinkList<T>::remove(index) == true)
 	{
-		if (LinkList<T>::length() != 0)
+		if (DualLinkList<T>::length() != 0)
 		{
 			if (index == 0)
 			{
 				mTail->next = this->mHeader;
+				this->mHeader->pre = this->mHeader;
 			}
-			else if (index == LinkList<T>::length())
+			else if (index == DualLinkList<T>::length())
 			{
 				Node* current = this->mHeader;
 				while (current->next != this->mHeader)
@@ -98,6 +96,7 @@ bool CircleList<T>::remove(int index)
 					current = current->next;
 				}
 				mTail = current;
+				this->mHeader->pre = mTail;
 			}
 		}
 		else
@@ -110,26 +109,28 @@ bool CircleList<T>::remove(int index)
 	{
 		return false;
 	}
+
 }
 
 template <typename T>
-bool CircleList<T>::set(int index, const T& element)
+bool DualCircleList<T>::set(int index, const T& element)
 {
-    return LinkList<T>::set(index % LinkList<T>::length(), element);
+	return DualLinkList<T>::set(index % DualLinkList<T>::length(), element);
 }
 
 template <typename T>
-bool CircleList<T>::get(int index, T& element) const
+bool DualCircleList<T>::get(int index, T& element) const
 {
-    return LinkList<T>::get(index % LinkList<T>::length(), element);
+    return DualLinkList<T>::get(index % DualLinkList<T>::length(), element);
 }
 
+
 template <typename T>
-int CircleList<T>::find(T& element) const
+int DualCircleList<T>::find(T& element) const
 {
 	if (mTail != NULL && element == mTail->value)
 	{
-		return LinkList<T>::length() - 1;
+		return DualLinkList<T>::length() - 1;
 	}
 	
 	int count = 0;
@@ -144,14 +145,20 @@ int CircleList<T>::find(T& element) const
     return -1;
 }
 
+
 template <typename T>
-bool CircleList<T>::move(int index, int step)
+bool DualCircleList<T>::move(int index, int step)
 {
-	return LinkList<T>::move(index % LinkList<T>::length(), step);
+	return DualLinkList<T>::move(index % DualLinkList<T>::length(), step);
+}
+
+template <typename T>
+DualCircleList<T>::~DualCircleList()
+{
+    DualLinkList<T>::clear();
 }
 
 }   // end namespace EasyDSL
 
 #endif
-
 
