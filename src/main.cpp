@@ -14,6 +14,8 @@ using namespace std;
 #include "CircleList.h"
 #include "DualLinkList.h"
 #include "DualCircleList.h"
+#include "StaticStack.h"
+#include "LinkStack.h"
 
 using namespace EasyDSL;
 
@@ -39,70 +41,16 @@ public:
 
 int main()
 {
-
-	CircleList<int> list;
-
-//	Test obj_A(5);
-//	Test obj_B(4);
-//	Test obj_C(3);
-
-	list.insert(0, 10);
-	for (int i = 20; i < 30; i++)
+	LinkStack<int> obj;
+	cout << obj.size() << endl;
+	for (int i = 0; i < 10; i++)
 	{
-		list.push_back(i);
-	}
-	list.remove(0);
-	list.remove(list.length());
-	list.remove(list.length() - 1);
-	list.move(0);
-	for (int i = 0; i < 20; list.next(), i++)
-	{
-		cout << list.current() << endl;
+		obj.push(i);
 	}
 
-/*
-    DynamicArray< DynamicArray<int> > nums;
-    nums.resize(10);
-    for (int i = 0; i < nums.length(); i++)
-    {
-    	nums[i].resize(i + 1);
-    }
-    for (int i = 0; i < nums.length(); i++)
-    {
-    	for (int j = 0; j < nums[i].length(); j++)
-    	{
-    		nums[i].set(j, j);
-    	}
-    }
-    for (int i = 0; i < nums.length(); i++)
-    {
-    	for (int j = 0; j < nums[i].length(); j++)
-    	{
-    		cout << nums[i][j] << " ";
-    	}
-    	cout << endl;
-    }
-*/
-
-//	const SharedPointer<Test> p = new Test(5);
-//	SharedPointer<Test> q(p);
-//	cout << (p == q) << endl;
-
-//	CirleList<int> cl;
-
-//	for (int i = 1; i <= 5; i++)
-//	{
-//		cl.push_back(i);
-//	}
-
-//	cl.move(0, 2);
-
-//	while (cl.length() > 0)
-//	{
-//		cl.next();
-//		cout << cl.current() << endl;
-//		cl.remove(cl.find(cl.current()));
-//	}
-
-//	cl.clear();
+	while (obj.size())
+	{
+		cout << obj.top() << endl;
+		obj.pop();
+	}
 }
