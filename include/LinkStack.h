@@ -25,19 +25,18 @@ public:
 template <typename T>
 void LinkStack<T>::push(const T& element)
 {
-	mList.insert(0, element);
+	if (mList.insert(0, element) == false)
+	{
+		THROW_EXCEPTION(InvalidOperationException, "The satck is full !!");
+	}
 }
 
 template <typename T>
 void LinkStack<T>::pop()
 {
-	if (mList.length() == 0)
+	if (mList.remove(0) == false)
 	{
         THROW_EXCEPTION(InvalidOperationException, "The satck is empty !!");
-	}
-	else
-	{
-		mList.remove(0);
 	}
 }
 
@@ -60,9 +59,8 @@ T LinkStack<T>::top()
 	{
         THROW_EXCEPTION(InvalidOperationException, "The satck is empty !!");
 	}
-	T tmp;
-	mList.get(0, tmp);
-	return tmp;
+	
+	return mList.get(0);
 }
 
 

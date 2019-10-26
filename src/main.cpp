@@ -16,6 +16,8 @@ using namespace std;
 #include "DualCircleList.h"
 #include "StaticStack.h"
 #include "LinkStack.h"
+#include "StaticQueue.h"
+#include "LinkQueue.h"
 
 using namespace EasyDSL;
 
@@ -41,16 +43,18 @@ public:
 
 int main()
 {
-	LinkStack<int> obj;
-	cout << obj.size() << endl;
-	for (int i = 0; i < 10; i++)
+	LinkQueue<Test> obj;
+	cout << obj.length() << endl;
+	for (int i = 0; i < 5; i++)
 	{
-		obj.push(i);
+		Test* p = new Test;
+		p->i = i;
+		obj.add(*p);
 	}
-
-	while (obj.size())
+	cout << "add success !" << endl;
+	while (obj.length())
 	{
-		cout << obj.top() << endl;
-		obj.pop();
+		cout << obj.front().i << endl;
+		obj.remove();
 	}
 }
