@@ -46,108 +46,178 @@ template <typename T>
 bool DualCircleList<T>::insert(int index, const T& element)
 {
 	int len = DualLinkList<T>::length();
-	if (len != 0 && index % len == 0)
+	if (len == 0)
 	{
-		return push_back(element);
+		if (index != 0)
+		{
+			THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+			return false;
+		}
+		
+		Node* node = DualLinkList<T>::create();
+		if (node != NULL)
+		{
+			node->value = element;
+			node->next = node;
+			node->pre = node;
+			this->mHeader = node;
+			mTail = node;
+			this->mLength++;
+		}
+		else
+		{
+			THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
+			return false;
+		}	
 	}
 	else
 	{
-		if (len != 0 && index >= len)
-		{
-			index = index % len;
-		}
-		if (DualLinkList<T>::insert(index, element) == true)
-    	{
-			if (len == 0)
-			{		
-				mTail = this->mHeader;
-				this->mHeader->next = this->mHeader;
-				this->mHeader->pre = this->mHeader;
-			}
-			else if (index == 0)
+		int new_index = index % len;
+		Node* node = DualLinkList<T>::create();
+		if (node != NULL)
+		{		
+			if (new_index == 0)
 			{
-				mTail->next = this->mHeader;
-				this->mHeader->pre = mTail;
+				node->value = element;
+				node->next = this->mHeader;
+				node->pre = mTail;
+				this->mHeader->pre = node;
+				mTail->next = node;
+				
+				if (index == 0)
+				{
+					this->mHeader = node;
+				}
+				else if (index > 0)
+				{
+					mTail = node;
+				}
+				else
+				{
+					THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+					return false;
+				}
 			}
-	    	return true;
-	    }
-	    else
-	    {
-	    	return false;
-  		} 
+			else
+			{
+				Node* current = NULL;
+				if (new_index <= len / 2)
+				{
+					current = this->mHeader;
+					while (--new_index)
+					{
+						current = current->next;
+					}
+				}
+				else
+				{
+					new_index = len - new_index;
+					current = mTail;
+					while (new_index--)
+					{
+						current = current->pre;
+					}		
+				}
+				node->value = element;
+				node->next = current->next;
+				node->pre = current;
+				current->next = node;
+				if (node->next != NULL)
+				{
+					node->next->pre = node;
+				}	
+			}
+			this->mLength++;
+		}
+		else
+		{
+			THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
+			return false;
+		}
 	}
+
+	return true;
 }
 
 template <typename T>
 bool DualCircleList<T>::push_back(const T& element)
 {
-	Node* node = DualLinkList<T>::create();
-	if (node != NULL)
-	{		
-		node->value = element;
-		
-		if (mTail != NULL)
-		{
-			mTail->next = node;
-			node->pre = mTail;
-			mTail = mTail->next;		
-		}
-		else
-		{
-			mTail = node;
-			this->mHeader = node;
-		}
-		
-		mTail->next = this->mHeader;
-		this->mHeader->pre = mTail;
-		this->mLength++;
-
-		return true;
-	}
-	else
-	{
-		THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
-		return false;
-	}
-	
+	insert(DualLinkList<T>::length(), element);
 }
 
 
 template <typename T>
 bool DualCircleList<T>::remove(int index)
 {
-	index = index % DualLinkList<T>::length();
-	if (DualLinkList<T>::remove(index) == true)
+	int len = DualLinkList<T>::length();
+	if (len == 0)
 	{
-		if (DualLinkList<T>::length() != 0)
+		THROW_EXCEPTION(IndexOutOfBoundsException, "the list is empty !!");
+		return false;
+	}
+	
+	index = index % len;
+	if (index == 0)
+    {
+    	Node* current = this->mHeader;
+    	if (len == 1)
+    	{
+    		this->mHeader = NULL;
+    		mTail = NULL;
+    	}
+    	else 
+    	{
+    		this->mHeader = this->mHeader->next;
+			this->mHeader->pre = mTail;
+			mTail->next = this->mHeader;
+    	}
+    	    	
+		this->mLength--;
+
+		if (this->mCurrent == current)
 		{
-			if (index == 0)
+			this->mCurrent = current->next;
+		}
+    	
+    	DualLinkList<T>::destroy(current);
+    }
+    else
+    {
+	    Node* current = NULL;
+		if (index <= len / 2)
+		{
+			current = this->mHeader;
+			while (--index)
 			{
-				mTail->next = this->mHeader;
-				this->mHeader->pre = this->mHeader;
-			}
-			else if (index == DualLinkList<T>::length())
-			{
-				Node* current = this->mHeader;
-				while (current->next != this->mHeader)
-				{
-					current = current->next;
-				}
-				mTail = current;
-				this->mHeader->pre = mTail;
+				current = current->next;
 			}
 		}
 		else
 		{
-			mTail = NULL;
+			index = len - index;
+			current = mTail;
+			while (index--)
+			{
+				current = current->pre;
+			}		
 		}
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 
+	    Node* tmp = current->next;
+	    current->next = current->next->next;
+	    if (current->next != NULL)
+	   	{
+	   		current->next->pre = current;
+	   	}
+	   	this->mLength--;
+
+		if (this->mCurrent == tmp)
+		{
+			this->mCurrent = current->next;
+		}
+		
+	    DualLinkList<T>::destroy(tmp);
+	}
+	return true;
 }
 
 template <typename T>

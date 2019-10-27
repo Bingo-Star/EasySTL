@@ -43,12 +43,12 @@ public:
 
 int main()
 {
-	CircleList<Test> obj;
+	DualCircleList<int> obj;
 	cout << obj.length() << endl;
 	for (int i = 0; i < 5; i++)
 	{
-		Test tmp(i);
-		obj.insert(obj.length(), tmp);
+//		Test tmp(i);
+		obj.insert(i, i);
 	}
 	cout << "add success !" << endl;
 //	while (obj.length())
@@ -63,8 +63,19 @@ int main()
 //	}
 	
 	int j = 0;
-	for (obj.move(0, 1); j < 10; obj.next(), j++)
+	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
 	{
-		cout << obj.current().i << endl;
+		cout << obj.current() << endl;
+	}
+
+	obj.clear();
+	obj.push_back(1000);
+	obj.push_back(50);
+//	obj.remove(obj.length());
+	cout << "remove success !" << endl;
+
+	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
+	{
+		cout << obj.current() << endl;
 	}
 }
