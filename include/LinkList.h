@@ -190,7 +190,7 @@ T LinkList<T>::get(int index)
 {
     if (index < 0 || index >= length())
     {
-        return false;
+        THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
     } 
     
     Node* current = mHeader;

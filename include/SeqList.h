@@ -10,8 +10,8 @@ template <typename T>
 class SeqList : public List<T>
 {
 protected:
-    T* mArray;      // 线性表存储空间
-    int mLength;    // 当前线性表长度
+    T* mArray;      
+    int mLength;   
 
 public:
     bool insert(int index, const T& element);
@@ -23,7 +23,7 @@ public:
     void clear();
 
     T& operator[] (int index);
-    T operator[] (int index) const;     // const 对象使用
+    T operator[] (int index) const;     
 
     virtual int capacity() const = 0;
 };

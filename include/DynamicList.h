@@ -10,7 +10,7 @@ template <typename T>
 class DynamicList : public SeqList<T>
 {
 protected:
-    int mCapacity;      // 顺序存储空间大小
+    int mCapacity;     
 
 public:
     DynamicList(int capacity = 64);

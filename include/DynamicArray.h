@@ -11,7 +11,7 @@ template <typename T>
 class DynamicArray : public Array<T>
 {
 protected:
-    int mLength;      // 顺序存储空间大小
+    int mLength;    
 
 public:
     DynamicArray(int len = 64);

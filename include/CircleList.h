@@ -19,9 +19,11 @@ public:
 	
 	bool insert(int index, const T& element);
 	bool remove(int index);
+	virtual bool push_back(const T& element);
 	  
 	bool set(int index, const T& element);
 	bool get(int index, T& element) const;
+	T get(int index);
 
 	int find(T& element) const;
 
@@ -37,46 +39,73 @@ CircleList<T>::CircleList()
 template <typename T>
 CircleList<T>::~CircleList()
 {
-	LinkList<T>::clear();
 }
 
 template <typename T>
 bool CircleList<T>::insert(int index, const T& element)
 {
-	int new_index = index;
 	int len = LinkList<T>::length();
-	if (len == 0)
+	if (len != 0 && index % len == 0)
 	{
-	    new_index = 0; 		
-	}
-	else if (index != 0 && index % len == 0)
-	{
-	    new_index = len;
+		return push_back(element);
 	}
 	else
 	{
-	    new_index = index % len;
+		if (len != 0 && index >= len)
+		{
+			index = index % len;
+		}
+		if (LinkList<T>::insert(index, element) == true)
+    	{
+			if (len == 0)
+			{		
+				mTail = this->mHeader;
+				this->mHeader->next = this->mHeader;
+			}
+			else if (index == 0)
+			{
+				mTail->next = this->mHeader;
+			}
+	    	return true;
+	    }
+	    else
+	    {
+	    	return false;
+  		} 
 	}
-
-	if (LinkList<T>::insert(new_index, element) == true)
-    {
-		if (len == 0)
-		{
-			mTail = this->mHeader;	
-			this->mHeader->next = this->mHeader;
-		}
-		else if (index != 0 && index % len == 0)
-		{
-			mTail = mTail->next;
-	    	mTail->next = this->mHeader;
-		}
-    	return true;
-    }
-    else
-    {
-    	return false;
-    }  
 }
+
+template <typename T>
+bool CircleList<T>::push_back(const T& element)
+{
+	Node* node = LinkList<T>::create();
+	if (node != NULL)
+	{		
+		node->value = element;
+		
+		if (mTail != NULL)
+		{
+			mTail->next = node;
+			mTail = mTail->next;		
+		}
+		else
+		{
+			mTail = node;
+			this->mHeader = node;
+		}
+		
+		mTail->next = this->mHeader;
+		this->mLength++;
+		
+		return true;
+	}
+	else
+	{
+		THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
+		return false;
+	}
+}
+
 
 template <typename T>
 bool CircleList<T>::remove(int index)
@@ -123,6 +152,13 @@ bool CircleList<T>::get(int index, T& element) const
 {
     return LinkList<T>::get(index % LinkList<T>::length(), element);
 }
+
+template <typename T>
+T CircleList<T>::get(int index)
+{
+    return LinkList<T>::get(index % LinkList<T>::length());
+}
+
 
 template <typename T>
 int CircleList<T>::find(T& element) const

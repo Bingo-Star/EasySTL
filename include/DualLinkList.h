@@ -36,8 +36,9 @@ public:
       
     bool set(int index, const T& element);
     bool get(int index, T& element) const;
+    T get(int index);
+    
     int length() const;
-
     void clear();
     int find(T& element) const;
     
@@ -202,6 +203,22 @@ bool DualLinkList<T>::get(int index, T& element) const
     element = current->value;
 
     return true;
+}
+
+template <typename T>
+T DualLinkList<T>::get(int index)
+{
+    if (index < 0 || index >= length())
+    {
+        THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+    } 
+    
+    Node* current = mHeader;
+    while (index--)
+    {
+        current = current->next;
+    }     
+    return current->value;
 }
 
 
