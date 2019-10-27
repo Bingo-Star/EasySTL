@@ -142,7 +142,7 @@ bool DualCircleList<T>::insert(int index, const T& element)
 template <typename T>
 bool DualCircleList<T>::push_back(const T& element)
 {
-	insert(DualLinkList<T>::length(), element);
+	return insert(DualLinkList<T>::length(), element);
 }
 
 
@@ -223,19 +223,102 @@ bool DualCircleList<T>::remove(int index)
 template <typename T>
 bool DualCircleList<T>::set(int index, const T& element)
 {
-	return DualLinkList<T>::set(index % DualLinkList<T>::length(), element);
+	int len = DualLinkList<T>::length();
+	if (len == 0)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "the list is empty !!");
+		return false;
+	}	
+	index = index % len;
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = this->mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	current->value = element;
+	
+	return true;
 }
 
 template <typename T>
 bool DualCircleList<T>::get(int index, T& element) const
 {
-    return DualLinkList<T>::get(index % DualLinkList<T>::length(), element);
+	int len = DualLinkList<T>::length();
+	if (len == 0)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "the list is empty !!");
+		return false;
+	}	
+	index = index % len;
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = this->mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	element = current->value;
+	
+	return true;
+
 }
 
 template <typename T>
 T DualCircleList<T>::get(int index)
 {
-    return DualLinkList<T>::get(index % DualLinkList<T>::length());
+	int len = DualLinkList<T>::length();
+	if (len == 0)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "the list is empty !!");
+	}	
+	index = index % len;
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = this->mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	
+	return current->value;
 }
 
 

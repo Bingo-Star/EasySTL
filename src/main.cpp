@@ -57,25 +57,28 @@ int main()
 //		obj.remove(0);
 //	}
 
-//	for (int i = 0; i < 10; i++)
-//	{
-//		cout << obj.get(i).i << endl;
-//	}
+	for (int i = 0; i < 10; i++)
+	{
+		cout << obj.get(i) << endl;
+	}
 	
-	int j = 0;
-	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
-	{
-		cout << obj.current() << endl;
-	}
+//	int j = 0;
+//	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
+//	{
+//		cout << obj.current() << endl;
+//	}
 
-	obj.clear();
-	obj.push_back(1000);
-	obj.push_back(50);
+//	obj.clear();
+//	obj.push_back(1000);
+//	obj.push_back(50);
 //	obj.remove(obj.length());
-	cout << "remove success !" << endl;
 
-	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
-	{
-		cout << obj.current() << endl;
-	}
+//	obj.set(0, 5);
+
+//	cout << "remove success !" << endl;
+
+//	for (j = 0, obj.move(0, 1); j < 10; obj.next(), j++)
+//	{
+//		cout << obj.current() << endl;
+//	}
 }
