@@ -12,7 +12,7 @@ template <typename T>
 class LinkQueue : public Queue<T>
 {
 protected:
-	LinkList<T> mList;
+	DualLinkList<T> mList;
 
 public:
     virtual void add(const T& element);

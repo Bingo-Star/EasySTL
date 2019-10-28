@@ -43,42 +43,42 @@ public:
 
 int main()
 {
-	DualCircleList<int> obj;
+	LinkQueue<int> obj;
 	cout << obj.length() << endl;
 	for (int i = 0; i < 5; i++)
 	{
 //		Test tmp(i);
-		obj.insert(0, i);
+		obj.add(i);
 	}
 	cout << "add success !" << endl;
-//	while (obj.length())
-//	{
-//		cout << obj.get(0).i << endl;
-//		obj.remove(0);
-//	}
+	while (obj.length())
+	{
+		cout << obj.front() << endl;
+		obj.remove();
+	}
 
 //	for (int i = 0; i < 10; i++)
 //	{
 //		cout << obj.get(i) << endl;
 //	}
 	
-	int j = 0;
-	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
-	{
-		cout << obj.current() << endl;
-	}
+//	int j = 0;
+//	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
+//	{
+//		cout << obj.current() << endl;
+//	}
 
-	obj.clear();
-	obj.push_back(1000);
-	obj.push_back(50);
+//	obj.clear();
+//	obj.push_back(1000);
+//	obj.push_back(50);
 //	obj.remove(obj.length());
 
 //	obj.set(6, 5);
 
 //	cout << "remove success !" << endl;
 
-	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
-	{
-		cout << obj.current() << endl;
-	}
+//	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
+//	{
+//		cout << obj.current() << endl;
+//	}
 }
