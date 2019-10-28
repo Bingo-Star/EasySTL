@@ -18,6 +18,7 @@ protected:
     };
     
     Node* mHeader;
+    Node* mTail;
     int mLength;
 
     Node* mCurrent;
@@ -65,6 +66,7 @@ template <typename T>
 DualLinkList<T>::DualLinkList()
 {
     mHeader = NULL;
+    mTail = NULL;
     mLength = 0;
     mCurrent = NULL;
     mStep = 1;
@@ -73,152 +75,246 @@ DualLinkList<T>::DualLinkList()
 template <typename T>
 bool DualLinkList<T>::insert(int index, const T& element)
 {
-    if (index < 0 || index > length())
+	int len = length();
+    if ((index < 0 || index > len) ||
+    	(len == 0 && index != 0))
     {
+    	THROW_EXCEPTION(IndexOutOfBoundsException, "err index in insert() !!");
         return false;
     }    
+		
+	Node* node = create();
+	if (node != NULL)
+	{
+		node->value = element;
+		if (len == 0)
+		{
+			node->next = NULL;
+			node->pre = NULL;
+			mHeader = node;
+			mTail = node;
+		}	
+		else if (index == 0)
+		{
+			node->next = mHeader;
+			node->pre = NULL;
+			mHeader->pre = node;
+			mHeader = node;
 
-    Node* node = create();
-    if (node != NULL)
-    {       
-        if (index == 0)
-        {
-	        node->value = element;
-	        node->next = mHeader;
-	        if (mHeader != NULL)
-	       	{
-	        	mHeader->pre = node;
-	        }
-	        mHeader = node;
-	        mHeader->pre = NULL;
-	    }
-	    else
-	    {
-		    Node* current = mHeader;
-		    while (--index)
-	        {
-	            current = current->next;
-	        }
-	        node->value = element;
-	        node->next = current->next;
-	        node->pre = current;
-	        current->next = node;
-	        if (node->next != NULL)
-	       	{
-	        	node->next->pre = node;
-	        }
-	    }
-        mLength++;
-    }
-    else
-    {
-        THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
-    }
+		}
+		else if (index == len)
+		{
+			node->next = NULL;
+			node->pre = mTail;
+			mTail->next = node;
+			mTail = node;			
+		}
+		else
+		{
+			Node* current = NULL;
+			if (index <= len / 2)
+			{
+				current = mHeader;
+				while (--index)
+				{
+					current = current->next;
+				}
+			}
+			else
+			{
+				index -= len;
+				current = mTail;
+				while (index--)
+				{
+					current = current->pre;
+				}		
+			}
+			node->next = current->next;
+			node->pre = current;
+			current->next = node;
+			if (node->next != NULL)
+			{
+				node->next->pre = node;
+			}	
+		}
+		mLength++;
+	}
+	else
+	{
+		THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create a node !!");
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
 template <typename T>
 bool DualLinkList<T>::remove(int index)
 {
-    if (index < 0 || index >= length())
+	int len = length();
+    if ((index < 0 || index >= len) ||
+    	(len == 0))
     {
+    	THROW_EXCEPTION(IndexOutOfBoundsException, "remove err !!");
         return false;
     } 
 
-    if (index == 0)
+	Node* current = NULL;
+	if (index == 0)
     {
-    	Node* current = mHeader;
-    	mHeader = mHeader->next;
-		if (mHeader != NULL)
-		{
+    	current = mHeader;
+    	if (len == 1)
+    	{
+    		mHeader = NULL;
+    		mTail = NULL;
+    	}
+    	else 
+    	{
+    		mHeader = mHeader->next;
 			mHeader->pre = NULL;
-		}
-		mLength--;
-
-		if (mCurrent == current)
-		{
-			mCurrent = current->next;
-		}
-    	
-    	destroy(current);
+    	}
+    }
+    else if (index == len - 1)
+    {
+     	current = mTail;
+		mTail = mTail->pre;
+		mTail->next = NULL;	
     }
     else
     {
-	    Node* current = mHeader;
-	    while (--index)
-	    {
-	        current = current->next;
-	    }  
-	    Node* tmp = current->next;
-	    current->next = current->next->next;
-	    if (current->next != NULL)
-	   	{
-	   		current->next->pre = current;
-	   	}
-	   	mLength--;
-
-		if (mCurrent == tmp)
+		if (index <= len / 2)
 		{
-			mCurrent = current->next;
+			current = this->mHeader;
+			while (index--)
+			{
+				current = current->next;
+			}
 		}
-		
-	    destroy(tmp);
+		else
+		{
+			index = len - index;
+			current = mTail;
+			while (--index)
+			{
+				current = current->pre;
+			}		
+		}
+	    current->next->pre = current->pre;
+		current->pre->next = current->next;
 	}
+	
+   	mLength--;
 
-    return true;
+	if (mCurrent == current)
+	{
+		mCurrent = current->next;
+	}
+	
+    destroy(current);
+    
+	return true;
 }
 
 template <typename T>
 bool DualLinkList<T>::set(int index, const T& element)
 {
-    if (index < 0 || index >= length())
+	int len = length();
+    if ((index < 0 || index >= len) ||
+    	(len == 0))
     {
+    	THROW_EXCEPTION(IndexOutOfBoundsException, "index err !!");
         return false;
     } 
-    
-    Node* current = mHeader;
-    while (index--)
-    {
-        current = current->next;
-    }     
-    current->value = element;
-
-    return true;
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	current->value = element;
+	
+	return true;
 }
 
 template <typename T>
 bool DualLinkList<T>::get(int index, T& element) const
 {
-    if (index < 0 || index >= length())
+    int len = length();
+    if ((index < 0 || index >= len) ||
+    	(len == 0))
     {
+    	THROW_EXCEPTION(IndexOutOfBoundsException, "index err !!");
         return false;
     } 
-    
-    Node* current = mHeader;
-    while (index--)
-    {
-        current = current->next;
-    }     
-    element = current->value;
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	element = current->value;
+	
+	return true;
 
-    return true;
 }
 
 template <typename T>
 T DualLinkList<T>::get(int index)
 {
-    if (index < 0 || index >= length())
+    int len = length();
+    if ((index < 0 || index >= len) ||
+    	(len == 0))
     {
-        THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
-    } 
-    
-    Node* current = mHeader;
-    while (index--)
-    {
-        current = current->next;
-    }     
-    return current->value;
+    	THROW_EXCEPTION(IndexOutOfBoundsException, "index err !!");
+    }
+	
+	Node* current = NULL;
+	if (index <= len / 2)
+	{
+		current = mHeader;
+		while (index--)
+		{
+			current = current->next;
+		}
+	}
+	else
+	{
+		index = len - index;
+		current = mTail;
+		while (--index)
+		{
+			current = current->pre;
+		}		
+	}
+	
+	return current->value;
+
 }
 
 
