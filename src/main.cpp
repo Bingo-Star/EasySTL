@@ -18,6 +18,8 @@ using namespace std;
 #include "LinkStack.h"
 #include "StaticQueue.h"
 #include "LinkQueue.h"
+#include "StackBaseQueue.h"
+#include "QueueBaseStack.h"
 
 using namespace EasyDSL;
 
@@ -43,8 +45,8 @@ public:
 
 int main()
 {
-	LinkQueue<int> obj;
-	cout << obj.length() << endl;
+	QueueBaseStack<int> obj;
+//	cout << obj.length() << endl;
 	for (int i = 0; i < 5; i++)
 	{
 //		Test tmp(i);
