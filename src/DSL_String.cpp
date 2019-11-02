@@ -1,0 +1,143 @@
+#include <cstring>
+#include <cstdlib>
+#include <iostream>
+
+#include "Exception.h"
+#include "DSL_String.h"
+
+using namespace EasyDSL;
+using namespace std;
+
+void String::init(const char* str)
+{
+	mStr = strdup(str);
+	if (mStr != NULL)
+	{
+		mLength = strlen(mStr);
+	}
+	else
+	{
+		THROW_EXCEPTION(NoEnoughMemoryException, "No memory to create String obj !!");
+	}
+}
+
+String::String()
+{
+	init("");
+}
+
+String::String(char c)
+{
+	char tmp[] = {c, '\0'};
+	init(tmp);
+}
+
+String::String(const char* str)
+{
+	init(str != NULL ? str : "");
+}
+
+String::String(const String& obj)
+{
+	init(obj.mStr);
+}
+
+String& String::operator = (const String& obj)
+{
+	if (obj != *this)
+	{
+		free(mStr);
+		init(obj.mStr);
+	}
+	return *this;
+}
+
+String& String::operator = (const char* str)
+{
+	if (mStr != str)
+	{
+		free(mStr);
+		init(str != NULL ? str : "");
+	}
+	return *this;
+}
+
+String& String::operator = (char c)
+{
+	free(mStr);
+	char tmp[] = {c, '\0'};
+	init(tmp);
+	return *this;
+}
+
+String::~String()
+{
+	free(mStr);
+}
+
+int String::length() const
+{
+	return mLength;
+}
+
+char* String::str() const
+{
+	return mStr;
+}
+
+bool String::operator == (const String& obj) const
+{
+	return strcmp(mStr, obj.mStr) == 0;
+}
+
+bool String::operator == (const char* str) const
+{
+	return strcmp(mStr, str != NULL ? str : "") == 0;
+}
+
+bool String::operator != (const String& obj) const
+{
+	return strcmp(mStr, obj.mStr) != 0;
+}
+
+bool String::operator != (const char* str) const
+{
+	return strcmp(mStr, str != NULL ? str : "") != 0;
+}
+
+String String::operator + (const String& obj) const
+{
+	return *this + obj.mStr;
+}
+
+String String::operator + (const char* str) const
+{
+	String ret;
+	int len = mLength + strlen(str) + 1;
+	char* p = reinterpret_cast<char*>(malloc(len));
+	if (p != NULL)
+	{
+		free(ret.mStr);
+		ret.mStr = p;
+		strcpy(ret.mStr, mStr);
+		strcat(ret.mStr, str);
+		ret.mLength = len;
+	}
+	else
+	{
+		THROW_EXCEPTION(InvalidOperationException, "No memory now");
+	}
+	return ret;
+}
+
+void String::operator += (const String& obj)
+{
+	*this = *this + obj;
+}
+
+void String::operator += (const char* str)
+{
+	*this = *this + str;
+}
+
+

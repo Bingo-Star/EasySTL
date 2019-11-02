@@ -20,6 +20,7 @@ using namespace std;
 #include "LinkQueue.h"
 #include "StackBaseQueue.h"
 #include "QueueBaseStack.h"
+#include "DSL_String.h"
 
 using namespace EasyDSL;
 
@@ -43,44 +44,13 @@ public:
 	}
 };
 
+
 int main()
 {
-	QueueBaseStack<int> obj;
-//	cout << obj.length() << endl;
-	for (int i = 0; i < 5; i++)
-	{
-//		Test tmp(i);
-		obj.add(i);
-	}
-	cout << "add success !" << endl;
-	while (obj.length())
-	{
-		cout << obj.front() << endl;
-		obj.remove();
-	}
-
-//	for (int i = 0; i < 10; i++)
-//	{
-//		cout << obj.get(i) << endl;
-//	}
-	
-//	int j = 0;
-//	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
-//	{
-//		cout << obj.current() << endl;
-//	}
-
-//	obj.clear();
-//	obj.push_back(1000);
-//	obj.push_back(50);
-//	obj.remove(obj.length());
-
-//	obj.set(6, 5);
-
-//	cout << "remove success !" << endl;
-
-//	for (j = 0, obj.move(0, 1); j < 10; obj.pre(), j++)
-//	{
-//		cout << obj.current() << endl;
-//	}
+	String obj = "abc";
+	obj += '5';
+	String obj_B = obj;
+	cout << obj.str() << endl;
+	cout << obj.length() << endl;
+	cout << (obj == obj_B) << endl;
 }
