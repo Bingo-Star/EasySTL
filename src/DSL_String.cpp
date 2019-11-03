@@ -130,6 +130,12 @@ String String::operator + (const char* str) const
 	return ret;
 }
 
+String String::operator + (const char c) const
+{
+	char tmp[] = {c, '\0'};
+	return *this + tmp;
+}
+
 void String::operator += (const String& obj)
 {
 	*this = *this + obj;
@@ -140,4 +146,68 @@ void String::operator += (const char* str)
 	*this = *this + str;
 }
 
+void String::operator += (const char c)
+{
+	char tmp[] = {c, '\0'};
+	*this = *this + tmp;
+}
+
+char& String::operator [] (int index)
+{
+	if (index < 0 || index >= mLength)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+	}
+	
+	return mStr[index];
+}
+
+char String::operator [] (int index) const
+{
+	if (index < 0 || index >= mLength)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+	}
+	
+	return mStr[index];
+}
+
+String& String::insert(int index, const char c)
+{
+	char tmp[] = {c, '\0'};
+	return insert(index, tmp);
+}
+
+String& String::insert(int index, const char* str)
+{
+	if (index < 0 || index > mLength)
+	{
+		THROW_EXCEPTION(IndexOutOfBoundsException, "err index !!");
+	}
+	else
+	{
+		int len = strlen(str);
+		char* p = reinterpret_cast<char*>(malloc(len + mLength + 1));
+		if (p != NULL)
+		{
+			strncpy(p, mStr, index);
+			strncpy(p + index, str, len);
+			strcpy(p + index + len, mStr + index);
+
+			free(mStr);
+			mStr = p;
+			mLength += len;
+		}
+		else
+		{
+			THROW_EXCEPTION(InvalidOperationException, "No memory now");
+		}
+	}
+	return *this;
+}
+
+String& String::insert(int index, const String& obj)
+{
+	return insert(index, obj.mStr);
+}
 

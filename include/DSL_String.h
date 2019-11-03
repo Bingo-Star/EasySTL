@@ -33,10 +33,20 @@ public:
 
 	String operator + (const String& obj) const;	
 	String operator + (const char* str) const;
+	String operator + (const char c) const;
+	
 	void operator += (const String& obj);	
 	void operator += (const char* str);
+	void operator += (const char c);
 
+	char& operator [] (int index);	
+	char operator [] (int index) const;
+
+	String& insert(int index, const char c);
+	String& insert(int index, const char* str);
+	String& insert(int index, const String& obj);
 };
+
 
 }   // end namespace EasyDSL
 

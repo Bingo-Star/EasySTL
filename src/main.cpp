@@ -48,9 +48,9 @@ public:
 int main()
 {
 	String obj = "abc";
-	obj += '5';
-	String obj_B = obj;
+//	obj += '5';
+	obj.insert(3, "456");
 	cout << obj.str() << endl;
 	cout << obj.length() << endl;
-	cout << (obj == obj_B) << endl;
+
 }
