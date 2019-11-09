@@ -52,5 +52,10 @@ int main()
 	obj.insert(3, "456");
 	cout << obj.str() << endl;
 	cout << obj.length() << endl;
-
+	String obj_B = obj.sub(5, 0);
+	cout << obj_B.str() << endl;
+	cout << obj_B.length() << endl;
+//	obj.remove("abd");
+//	cout << obj.str() << endl;
+//	cout << obj.length() << endl;
 }
