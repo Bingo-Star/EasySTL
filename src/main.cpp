@@ -21,6 +21,7 @@ using namespace std;
 #include "StackBaseQueue.h"
 #include "QueueBaseStack.h"
 #include "DSL_String.h"
+#include "Sort.h"
 
 using namespace EasyDSL;
 
@@ -44,18 +45,26 @@ public:
 	}
 };
 
+template <typename T>
+T add(T num_A, T num_B)
+{
+	return num_A + num_B;
+}
 
 int main()
 {
-	String obj = "abc";
-//	obj += '5';
-	obj.insert(3, "456");
-	cout << obj.str() << endl;
-	cout << obj.length() << endl;
-	String obj_B = obj.sub(5, 0);
-	cout << obj_B.str() << endl;
-	cout << obj_B.length() << endl;
-//	obj.remove("abd");
-//	cout << obj.str() << endl;
-//	cout << obj.length() << endl;
+//	int nums[10] = {5, 1, 8, 1, 7, 21, 4, 4, 9, 3};
+	StaticArray <int, 10> nums;
+	for (int i = 0; i < nums.length(); i++)
+	{
+		nums[i] = 10 - i;
+	}
+
+	Sort::Quick(nums, 10);
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << nums[i] << endl;
+	}
+
 }

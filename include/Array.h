@@ -18,6 +18,7 @@ public:
     virtual bool get(int index, T& element) const;
     T& operator[] (int index);
     T operator[] (int index) const;
+    T* addr() const;
     virtual int length() const = 0;
 };
 
@@ -63,6 +64,13 @@ T Array<T>::operator[] (int index) const
 {
     return (const_cast<Array<T>&>(*this))[index];
 }
+
+template <typename T>
+T* Array<T>::addr () const
+{
+    return mArray;
+}
+
 
 }   // end namespace EasyDSL
 
