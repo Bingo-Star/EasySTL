@@ -2,6 +2,7 @@
 #define LINKLIST_H
 
 #include "List.h"
+#include "Exception.h"
 
 namespace EasyDSL
 {

@@ -3,7 +3,7 @@
 
 #include "Queue.h"
 #include "Exception.h"
-#include "LinkList.h"
+#include "DualLinkList.h"
 
 namespace EasyDSL
 {
