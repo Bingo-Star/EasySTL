@@ -24,6 +24,9 @@ using namespace std;
 //#include "Sort.h"
 #include "GTreeNode.h"
 #include "GTree.h"
+#include "BTree.h"
+
+
 
 #include <list>
 
@@ -71,7 +74,13 @@ int main()
 	Tree.insert(2, pNode1);
 	Tree.insert(3, pNode2);
 	Tree.insert(4, pNode2);
-	Tree.insert(5, pNode1);
+
+	Tree.insert(5, Tree.find(2));
+	Tree.insert(6, Tree.find(2));
+//	
+//	Tree.remove(Tree.find(1));
+
+//	cout << Tree.height() << endl;
 
 	for (Tree.begin(); !Tree.end(); Tree.next())
 	{

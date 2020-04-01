@@ -4,6 +4,8 @@
 #include "Root.h"
 #include "TreeNode.h"
 #include "SharedPointer.h"
+#include "LinkQueue.h"
+
 
 namespace EasyDSL
 {
@@ -13,6 +15,7 @@ class Tree : public RootClass
 {
 protected:
 	TreeNode<T>* mRoot;
+	LinkQueue< TreeNode<T>* > NodeQueue;
 
 public:
 	Tree();
@@ -27,6 +30,11 @@ public:
     virtual int count() const = 0;
     virtual int height() const = 0;
     virtual void clear() = 0;
+    virtual void begin() = 0;
+    virtual void next() = 0;
+    virtual bool end() = 0;
+    virtual const TreeNode<T>* Current() = 0;
+
 };
 
 template <typename T>

@@ -9,7 +9,12 @@ namespace EasyDSL
 template <typename T>
 class TreeNode : public RootClass
 {
+protected:
+	
+	void* operator new (size_t size)  throw();
+
 public:
+
 	T value;
 	TreeNode<T>* parent;
 
@@ -27,6 +32,13 @@ template <typename T>
 TreeNode<T>::~TreeNode()
 {
 }
+
+template <typename T>
+void* TreeNode<T>::operator new (size_t size) throw()
+{
+	return RootClass::operator new(size);
+}
+
     
 }   // end namespace EasyDSL
 

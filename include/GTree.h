@@ -4,8 +4,6 @@
 #include "GTreeNode.h"
 #include "Tree.h"
 #include "Exception.h"
-#include "LinkQueue.h"
-
 
 namespace EasyDSL
 {
@@ -18,9 +16,7 @@ protected:
 	GTreeNode<T>* find(GTreeNode<T>* node, GTreeNode<T>* dst_node) const;
 	void free(GTreeNode<T>* node);
 	int dsp(GTreeNode<T>* node, int& degree, int& count) const;
-
-	LinkQueue< GTreeNode<T>* > NodeQueue;
-
+	
 	GTree(const GTree<T>& obj);
 	GTree<T>& operator = (const GTree<T>& obj);
 
@@ -39,10 +35,10 @@ public:
     virtual int height() const;
     virtual void clear();
 
-    void begin();
-    void next();
-    bool end();
-    const GTreeNode<T>* Current();
+    virtual void begin();
+    virtual void next();
+    virtual bool end();
+    virtual const TreeNode<T>* Current();
 };
 
 template <typename T>
@@ -140,7 +136,7 @@ SharedPointer< Tree<T> > GTree<T>::remove(const T& value)
 			GTreeNode<T>* pParent = dynamic_cast<GTreeNode<T>*>(pNode->parent);
 			pParent->child.remove(pParent->child.find(pNode));
 		}
-		NodeQueue.clear();
+		this->NodeQueue.clear();
 		
 		GTree<T>* ret = new GTree;
 		if (ret == NULL)
@@ -300,10 +296,7 @@ void GTree<T>::free(GTreeNode<T>* node)
 			free(node->child.current());
 		}
 
-		if (node->flg())
-		{
-			delete node;
-		}	
+		delete node;
 	}
 }
 
@@ -312,20 +305,22 @@ void GTree<T>::clear()
 {
 	free(root());
 	this->mRoot = NULL;
-	NodeQueue.clear();
+	this->NodeQueue.clear();
 }
 
 template <typename T>
 void GTree<T>::begin()
 {
-	NodeQueue.clear();
+	this->NodeQueue.clear();
 	if (root() != NULL)
 	{
-		NodeQueue.add(root());
-		for (NodeQueue.front()->child.move(0); !NodeQueue.front()->child.end(); NodeQueue.front()->child.next())
+		this->NodeQueue.add(root());
+		GTreeNode<T>* pNode = dynamic_cast<GTreeNode<T>*>(this->NodeQueue.front());
+		for (pNode->child.move(0); !pNode->child.end(); pNode->child.next())
 		{
-			NodeQueue.add(NodeQueue.front()->child.current());
+			this->NodeQueue.add(pNode->child.current());
 		}
+
 	}
 
 }
@@ -333,12 +328,13 @@ void GTree<T>::begin()
 template <typename T>
 void GTree<T>::next()
 {
-	NodeQueue.remove();
-	if (NodeQueue.length() > 0)
+	this->NodeQueue.remove();
+	if (this->NodeQueue.length() > 0)
 	{
-		for (NodeQueue.front()->child.move(0); !NodeQueue.front()->child.end(); NodeQueue.front()->child.next())
+		GTreeNode<T>* pNode = dynamic_cast<GTreeNode<T>*>(this->NodeQueue.front());
+		for (pNode->child.move(0); !pNode->child.end(); pNode->child.next())
 		{
-			NodeQueue.add(NodeQueue.front()->child.current());
+			this->NodeQueue.add(pNode->child.current());
 		}
 	}
 }
@@ -346,13 +342,13 @@ void GTree<T>::next()
 template <typename T>
 bool GTree<T>::end()
 {
-	return NodeQueue.length() > 0 ? false : true;
+	return this->NodeQueue.length() > 0 ? false : true;
 }
 
 template <typename T>
-const GTreeNode<T>* GTree<T>::Current()
+const TreeNode<T>* GTree<T>::Current()
 {
-	return NodeQueue.length() > 0 ? NodeQueue.front() : NULL;
+	return this->NodeQueue.length() > 0 ? this->NodeQueue.front() : NULL;
 }
 
 
